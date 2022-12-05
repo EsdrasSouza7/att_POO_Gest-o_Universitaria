@@ -1,4 +1,5 @@
 from src.aluno.base.funcionario import Funcionario
+from src.cliente.tipo import Tipo
 
 
 class STA(Funcionario):
@@ -7,5 +8,5 @@ class STA(Funcionario):
         self.cpf = cpf
         self.nome = nome
         self.nivel = nivel
-        self.cargo = 2
+        self.cargo = Tipo.STA
         self.diaria = 1

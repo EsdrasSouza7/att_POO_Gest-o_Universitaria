@@ -1,4 +1,5 @@
 from src.aluno.base.funcionario import Funcionario
+from src.cliente.tipo import Tipo
 
 
 class Professor(Funcionario):
@@ -7,7 +8,7 @@ class Professor(Funcionario):
         self.cpf = cpf
         self.nome = nome
         self.classe = classe
-        self.cargo = 1
+        self.cargo = Tipo.PROF
         self.diaria = 3
         self.salario = 0
 

@@ -73,7 +73,7 @@ class RHServiceCase(unittest.TestCase):
         self.assertTrue(self.rh.cadastrar(self.tercAdriana), "O terceirizado deveria ter sido adicionado")
 
     def test_removerFuncionario(self):
-        self.inserirFuncionarios()
+        self.test_inserirFuncionarios()
 
         self.assertTrue(self.rh.remover(self.cpfLacerda), "Deve ser possivel remover funcionario cadastrado")
         self.assertTrue(self.rh.remover(self.cpfAdriana), "Deve ser possivel remover funcionario cadastrado")
@@ -124,7 +124,7 @@ class RHServiceCase(unittest.TestCase):
         self.rh.cadastrar(profX)
 
         self.assertEqual([self.profAlessio, profChico, self.profJonas, profX],
-                         self.rh.getFuncionariosPorCategoria(IRHService.Tipo.PROF),
+                         self.rh.getFuncionariosPorCategorias(IRHService.Tipo.PROF),
                          "A lista deve conter os mesmo funcionario e deve estar ordenada pelo nome funcionario")
 
     def test_buscarTodosOsSTAs(self):
@@ -135,14 +135,14 @@ class RHServiceCase(unittest.TestCase):
         self.rh.cadastrar(profX)
 
         self.assertEqual([self.staLacerda, self.staMiriam],
-                         self.rh.getFuncionariosPorCategoria(STA),
+                         self.rh.getFuncionariosPorCategorias(STA),
                          "A lista deve conter os mesmo funcionario e deve estar ordenada pelo nome funcionario")
 
     def test_buscarTodosOsTerceirizados(self):
         self.inserirFuncionarios()
 
         self.assertEqual([self.tercAdriana, self.tercCarla],
-                         self.rh.getFuncionariosPorCategoria(IRHService.Tipo.TERC),
+                         self.rh.getFuncionariosPorCategorias(IRHService.Tipo.TERC),
                          "A lista deve conter os mesmo funcionario e deve estar ordenada pelo nome funcionario")
 
     def test_buscarTodosOsFuncionarios(self):
@@ -158,8 +158,8 @@ class RHServiceCase(unittest.TestCase):
         self.assertTrue(self.rh.cadastrar(self.profJonas))
         self.assertTrue(self.rh.cadastrar(self.profAlessio))
 
-        self.assertEqual(7000.0, self.rh.calcularSalarioDoFuncionario(self.cpfJonas), 0.01, "Calculo incorreto")
-        self.assertEqual(5000.0, self.rh.calcularSalarioDoFuncionario(self.cpfAlessio), 0.01, "Calculo incorreto")
+        self.assertEqual(7000.0, self.rh.calcularSalarioDoFuncionario(self.cpfJonas) , "Calculo incorreto")
+        self.assertEqual(5000.0, self.rh.calcularSalarioDoFuncionario(self.cpfAlessio), "Calculo incorreto")
 
     def test_calcularSalarioSTA(self):
         self.assertTrue(self.rh.cadastrar(self.staMiriam))
@@ -261,9 +261,9 @@ class RHServiceCase(unittest.TestCase):
 
         self.assertEquals(10000.0, self.rh.calcularFolhaDePagamento(), 0.01)
 
-        self.assertTrue(self.rh.partilharLucros(6.00))
+        self.assertTrue(self.rh.partilharLucros(6.0))
 
-        self.assertEquals(2002.0, self.rh.calcularSalarioDoFuncionario(self.cpfMiriam), 0.01,
+        self.assertEquals(2002.0, self.rh.calcularSalarioDoFuncionario(self.cpfMiriam),
                           "Salarios com participacao nos lucros incorreto")
 
     def test_calcularFolhaComPL(self):

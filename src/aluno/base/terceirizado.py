@@ -1,4 +1,5 @@
 from src.aluno.base.funcionario import Funcionario
+from src.cliente.tipo import Tipo
 
 
 class Terceirizado(Funcionario):
@@ -7,5 +8,5 @@ class Terceirizado(Funcionario):
         self.cpf = cpf
         self.nome = nome
         self.insalubre = insalubre
-        self.cargo = 3
+        self.cargo = Tipo.TERC
         self.diaria = 0
