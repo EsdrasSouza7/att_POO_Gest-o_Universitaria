@@ -33,14 +33,16 @@ class RHService(IRHService):
 
     def getFuncionarios(self):
         return self.funcio
-    #colocar os nomes em ordem alfabetica
+
+    # colocar os nomes em ordem alfabetica
     def getFuncionariosPorCategorias(self, tipo):
         temp = []
         for fun in self.funcio:
             if fun.cargo == tipo.value:
                 temp.append(fun)
         return temp
-    #Colocar todos os nomes em ordem alfabetica
+
+    # Colocar todos os nomes em ordem alfabetica
 
     def getTotalFuncionarios(self):
         return len(self.funcio)
@@ -57,13 +59,12 @@ class RHService(IRHService):
         else:
             return False
 
-
     def partilharLucros(self, valor: float):
         numfuncionarios = self.getTotalFuncionarios()
         if numfuncionarios == 0:
             return False
         else:
-            lucros = valor/numfuncionarios
+            lucros = valor / numfuncionarios
             for fun in self.funcio:
                 fun.salario += lucros
             return True
@@ -78,12 +79,41 @@ class RHService(IRHService):
                 fun.diaria = 0
 
     def calcularSalarioDoFuncionario(self, cpf: str):
+        salarioProf = {'A': 3000, 'B': 5000, 'C': 7000, 'D': 9000, 'E': 11000}
         fun = self.obterFuncionario(cpf)
-        if fun.cargo == Tipo.PROF: #funcional
-            if fun.getClasse() == "A":
-                print('Test')
-
+        if fun.getCargo() == Tipo.PROF:  # funcional
+            if fun.salarioMes == 1:
+                fun.salario += salarioProf[fun.getClasse()]
+                fun.salarioMes = 0
+                return fun.salario
+            else:
+                return fun.salario
+        elif fun.cargo == Tipo.STA:
+            if fun.salarioMes == 1:
+                fun.salario += 1000 + (100 * fun.getNivel())
+                fun.salarioMes = 0
+                return fun.salario
+            else:
+                return fun.salario
+        elif fun.cargo == Tipo.TERC:
+            if fun.salarioMes == 1:
+                if fun.getInsalubre() == True:
+                    fun.salario += 1500
+                    fun.salarioMes = 0
+                    return fun.salario
+                else:
+                    fun.salario += 1000
+                    fun.salarioMes = 0
+                    return fun.salario
+            else:
+                return fun.salario
+        else:
+            return None
 
 
     def calcularFolhaDePagamento(self):
-        return 0
+        salario = float(0)
+        for fun in self.funcio:
+            salario += self.calcularSalarioDoFuncionario(fun.getCpf)
+        return salario
+

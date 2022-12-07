@@ -10,3 +10,5 @@ class Terceirizado(Funcionario):
         self.insalubre = insalubre
         self.cargo = Tipo.TERC
         self.diaria = 0
+        self.salario = float(0)
+        self.salarioMes = 1

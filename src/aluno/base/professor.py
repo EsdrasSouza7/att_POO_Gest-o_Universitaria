@@ -10,7 +10,8 @@ class Professor(Funcionario):
         self.classe = classe
         self.cargo = Tipo.PROF
         self.diaria = 3
-        self.salario = 0
+        self.salario = float(0)
+        self.salarioMes = 1
 
 
 

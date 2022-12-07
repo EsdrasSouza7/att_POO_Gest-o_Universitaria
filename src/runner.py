@@ -8,7 +8,7 @@ if __name__ == '__main__':
     rh = RHService()
     rh.cadastrar(Professor('16', 'Jonas', 'C'))
     rh.cadastrar(Professor('15', 'Alessio', 'B'))
-    print("Total de funcionarios = {}".format(rh.getTotalFuncionarios())) #Total de funcionarios = 2
+    print("Total de funcionarios = {}".format(rh.getTotalFuncionarios()))  # Total de funcionarios = 2
 
     rh.cadastrar(STA("43", "Miriam", 10))
     rh.cadastrar(STA("23", "Lacerda", 5))
@@ -28,22 +28,21 @@ if __name__ == '__main__':
     rh.solicitarDiaria("23")
     rh.solicitarDiaria("23")
 
-
-    print(rh.calcularSalarioDoFuncionario("16")) #7300.0
-    print(rh.calcularSalarioDoFuncionario("23")) #1600.0
-    print(rh.calcularSalarioDoFuncionario("12")) #None
-    print(rh.calcularSalarioDoFuncionario("78")) #1500.0
+    print(rh.calcularSalarioDoFuncionario("16"))  # 7300.0
+    print(rh.calcularSalarioDoFuncionario("23"))  # 1600.0
+    print(rh.calcularSalarioDoFuncionario("12"))  # None
+    print(rh.calcularSalarioDoFuncionario("78"))  # 1500.0
 
     rh.iniciarMes()
     rh.partilharLucros(20000)
 
     for funcionario in rh.getFuncionarios():
-        print('{}(cpf: {}) -> salario= {} '.format(funcionario.getNome(), funcionario.getCpf(), funcionario.getSalario()))
+        print(
+            '{}(cpf: {}) -> salario= {} '.format(funcionario.getNome(), funcionario.getCpf(), funcionario.getSalario()))
 
-        #Adriana(cpf=78) -> salario=5500.0
-        #Alessio(cpf=15) -> salario=9000.0
-        #Jonas(cpf=16) -> salario=11000.0
-        #Lacerda(cpf=23) -> salario=5500.0
-        #Miriam(cpf=43) -> salario=6000.0
-    print('Folha do mes = {}'.format(rh.calcularFolhaDePagamento())) # Folha do mes = 37000.0
-
+        # Adriana(cpf=78) -> salario=5500.0
+        # Alessio(cpf=15) -> salario=9000.0
+        # Jonas(cpf=16) -> salario=11000.0
+        # Lacerda(cpf=23) -> salario=5500.0
+        # Miriam(cpf=43) -> salario=6000.0
+    print('Folha do mes = {}'.format(rh.calcularFolhaDePagamento()))  # Folha do mes = 37000.0
