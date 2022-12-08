@@ -5,10 +5,6 @@ from src.cliente.tipo import Tipo
 class Terceirizado(Funcionario):
 
     def __init__(self, cpf: str, nome: str, insalubre: bool):
-        self.cpf = cpf
-        self.nome = nome
+        super().__init__(cpf, nome, Tipo.TERC)
         self.insalubre = insalubre
-        self.cargo = Tipo.TERC
         self.diaria = 0
-        self.salario = float(0)
-        self.salarioMes = 1

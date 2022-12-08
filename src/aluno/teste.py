@@ -12,3 +12,4 @@ print(rh.solicitarDiaria("8945654")) # diaria +100
 print(rh.solicitarDiaria("123456"))
 print(rh.calcularSalarioDoFuncionario("8945654")) # salario +11000
 print(rh.calcularSalarioDoFuncionario('8798787'))
+

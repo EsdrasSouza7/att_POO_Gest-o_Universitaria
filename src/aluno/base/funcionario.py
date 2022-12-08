@@ -1,4 +1,16 @@
+from typing import Type
+
+from src.cliente.tipo import Tipo
+
+
 class Funcionario:
+
+    def __init__(self, cpf: str, nome: str, cargo: Tipo):
+        self.cpf = cpf
+        self.nome = nome
+        self.salario = float(0)
+        self.salarioMes = 1
+        self.cargo = cargo
 
     def getNome(self) -> str:
         return self.nome

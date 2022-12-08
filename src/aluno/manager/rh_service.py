@@ -13,6 +13,17 @@ class RHService(IRHService):
             if fun.getCpf() == funcionario.getCpf():
                 print("Pessoa ja existente")
                 return False
+        classes = ['A', 'B', 'C', 'D', 'E']
+        if funcionario.getCargo() == Tipo.PROF:
+            test = False
+            for x in classes:
+                if funcionario.getClasse() == x:
+                    test = True
+            if not test:
+                return False
+        elif funcionario.getCargo() == Tipo.STA:
+            if funcionario.getNivel() > 30 or funcionario.getNivel() < 1:
+                return False
         self.funcio.append(funcionario)
         return True
 
@@ -32,17 +43,25 @@ class RHService(IRHService):
         return None
 
     def getFuncionarios(self):
-        return self.funcio
-
-    # colocar os nomes em ordem alfabetica
-    def getFuncionariosPorCategorias(self, tipo):
-        temp = []
+        temp = {}
+        retorno = []
         for fun in self.funcio:
-            if fun.cargo == tipo.value:
-                temp.append(fun)
-        return temp
+            temp[fun.getNome()] = fun
+        nomes = sorted(temp)
+        for ordenado in nomes:
+            retorno.append(temp.get(ordenado))
+        return retorno
 
-    # Colocar todos os nomes em ordem alfabetica
+    def getFuncionariosPorCategorias(self, tipo):
+        temp = {}
+        retorno = []
+        for fun in self.funcio:
+            if fun.getCargo() == tipo:
+                temp[fun.getNome()] = fun
+        nomes = sorted(temp)
+        for ordenado in nomes:
+            retorno.append(temp.get(ordenado))
+        return retorno
 
     def getTotalFuncionarios(self):
         return len(self.funcio)
@@ -77,25 +96,33 @@ class RHService(IRHService):
                 fun.diaria = 1
             elif fun.cargo == Tipo.TERC:
                 fun.diaria = 0
+            fun.salarioMes = 1
+            fun.salario = float(0)
 
     def calcularSalarioDoFuncionario(self, cpf: str):
-        salarioProf = {'A': 3000, 'B': 5000, 'C': 7000, 'D': 9000, 'E': 11000}
         fun = self.obterFuncionario(cpf)
-        if fun.getCargo() == Tipo.PROF:  # funcional
+        if fun == None:
+            return None
+        else:
+            return self.calculoSalario(fun)
+
+    def calculoSalario(self, fun: Funcionario):
+        salarioProf = {'A': 3000, 'B': 5000, 'C': 7000, 'D': 9000, 'E': 11000}
+        if fun.cargo == Tipo.PROF:
             if fun.salarioMes == 1:
                 fun.salario += salarioProf[fun.getClasse()]
                 fun.salarioMes = 0
                 return fun.salario
             else:
                 return fun.salario
-        elif fun.cargo == Tipo.STA:
+        elif fun.getCargo() == Tipo.STA:
             if fun.salarioMes == 1:
                 fun.salario += 1000 + (100 * fun.getNivel())
                 fun.salarioMes = 0
                 return fun.salario
             else:
                 return fun.salario
-        elif fun.cargo == Tipo.TERC:
+        elif fun.getCargo() == Tipo.TERC:
             if fun.salarioMes == 1:
                 if fun.getInsalubre() == True:
                     fun.salario += 1500
@@ -107,13 +134,11 @@ class RHService(IRHService):
                     return fun.salario
             else:
                 return fun.salario
-        else:
-            return None
 
 
     def calcularFolhaDePagamento(self):
         salario = float(0)
         for fun in self.funcio:
-            salario += self.calcularSalarioDoFuncionario(fun.getCpf)
+            salario += self.calculoSalario(fun)
         return salario
 
